@@ -1,0 +1,96 @@
+{
+  "welcome": "Bienvenue",
+  "title": "Dr. Malika Lkhabir",
+  "subtitle": "Psychologue Clinicienne",
+  "description": "Bienvenue sur notre site de consultation psychologique",
+  "switch_language": "Passer à l'arabe",
+  "test_message": "Si vous pouvez lire ce message, i18next fonctionne correctement!",
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "contact": "Contact",
+    "appointment": "Rendez-vous"
+  },
+  "hero": {
+    "title": "Votre bien-être mental, notre priorité",
+    "subtitle": "Consultations psychologiques professionnelles avec bienveillance et expertise",
+    "cta": "Prendre rendez-vous",
+    "online_consultation": "Consultation en ligne disponible"
+  },
+  "about": {
+    "title": "Dr. Malika Lkhabir",
+    "subtitle": "Psychologue Clinicienne Diplômée",
+    "description": "Avec plus de 10 ans d'expérience en psychologie clinique, je vous accompagne dans votre parcours de bien-être mental avec bienveillance et professionnalisme.",
+    "specialties": "Spécialisations",
+    "experience": "Plus de 10 ans d'expérience",
+    "approach": "Approche humaniste et intégrative",
+    "languages": "Français, Arabe, Anglais"
+  },
+  "services": {
+    "title": "Nos Services",
+    "subtitle": "Un accompagnement personnalisé pour chaque besoin",
+    "individual": {
+      "title": "Thérapie Individuelle",
+      "description": "Accompagnement personnalisé pour adultes et adolescents",
+      "details": "Gestion du stress, anxiété, dépression, estime de soi"
+    },
+    "couple": {
+      "title": "Thérapie de Couple",
+      "description": "Renforcement des liens et amélioration de la communication",
+      "details": "Communication, conflits, reconstruction relationnelle"
+    },
+    "family": {
+      "title": "Thérapie Familiale",
+      "description": "Harmonisation des relations familiales",
+      "details": "Dynamiques familiales, relations parent-enfant"
+    },
+    "consultation": {
+      "title": "Consultation Initiale",
+      "description": "Première rencontre d'évaluation",
+      "details": "Évaluation des besoins et plan thérapeutique"
+    }
+  },
+  "features": {
+    "professional": {
+      "title": "Professionnalisme",
+      "description": "Formation continue et approche basée sur l'évidence"
+    },
+    "confidential": {
+      "title": "Confidentialité",
+      "description": "Respect strict du secret professionnel"
+    },
+    "accessible": {
+      "title": "Accessibilité",
+      "description": "Consultations en présentiel et en ligne"
+    },
+    "multilingual": {
+      "title": "Multilingue",
+      "description": "Consultations en français, arabe et anglais"
+    }
+  },
+  "contact": {
+    "title": "Nous Contacter",
+    "subtitle": "Prenez rendez-vous ou posez-nous vos questions",
+    "phone": "Téléphone",
+    "email": "Email",
+    "address": "Adresse",
+    "hours": "Horaires",
+    "location": "Casablanca, Maroc",
+    "schedule": "Lun-Ven: 9h-18h | Sam: 9h-13h",
+    "emergency": "Urgences: 141",
+    "form": {
+      "name": "Nom complet",
+      "email": "Email",
+      "phone": "Téléphone",
+      "message": "Message",
+      "send": "Envoyer",
+      "required": "Champs obligatoires"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 Dr. Malika Lkhabir - Psychologue Clinicienne",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation"
+  }
+}
