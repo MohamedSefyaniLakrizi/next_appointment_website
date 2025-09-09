@@ -144,7 +144,7 @@ export default function Header() {
           href="tel:+2120123456789"
         >
           <Phone size={20} />
-          <span className="text-xs md:text-sm">+212 0 00 00 00 00</span>
+          <span className="text-xs md:text-sm">+212 1 23 45 67 89</span>
         </a>
         <Separator orientation="vertical" />
 
