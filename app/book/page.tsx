@@ -2,6 +2,10 @@
 import "../styles/book.css";
 import Script from "next/script";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { toast } from "sonner";
 import { Calendar } from "../components/ui/calendar";
 import {
   Popover,
@@ -9,16 +13,102 @@ import {
   PopoverTrigger,
 } from "../components/ui/popover";
 import { Button } from "../components/ui/button";
+import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
+import { Label } from "../components/ui/label";
+import { Input } from "../components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../components/ui/form";
+
+const formSchema = z.object({
+  firstName: z.string().min(1, "Le prénom est requis"),
+  lastName: z.string().min(1, "Le nom est requis"),
+  email: z.string().email("Email invalide"),
+  phone: z
+    .string()
+    .min(1, "Le numéro de téléphone est requis")
+    .regex(/^(\d{2}\s){4}\d{2}$/, "Le numéro doit contenir 10 chiffres"),
+  date: z.date({ message: "La date est requise" }),
+  time: z.string().min(1, "L'heure est requise"),
+  preferred_method: z.string().min(1, "La méthode de contact est requise"),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 export default function BookPage() {
   const [selectedType, setSelectedType] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    date: undefined as Date | undefined,
+  const [open, setOpen] = useState(false);
+
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      time: "09:00",
+      preferred_method: "",
+    },
   });
+
+  // Phone number formatting function
+  const formatPhoneNumber = (value: string) => {
+    const digits = value.replace(/\D/g, "");
+
+    const limitedDigits = digits.substring(0, 10);
+
+    const formatted = limitedDigits.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
+
+    return formatted;
+  };
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      // Prepare the data for API submission
+      const submitData = {
+        ...data,
+        date: data.date?.toISOString(), // Convert Date to string for API
+      };
+
+      console.log("Form submitted:", submitData);
+
+      // Send the booking request to our API
+      const response = await fetch("/api/send-booking-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(submitData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Erreur lors de l'envoi");
+      }
+
+      toast.success("Demande de rendez-vous envoyée avec succès!", {
+        description:
+          "Nous vous contacterons bientôt pour confirmer votre rendez-vous.",
+      });
+
+      // Reset form after successful submission
+      form.reset();
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast.error("Erreur lors de l'envoi", {
+        description:
+          error instanceof Error
+            ? error.message
+            : "Veuillez réessayer plus tard.",
+      });
+    }
+  };
 
   useEffect(() => {
     // Load the CSS
@@ -187,146 +277,213 @@ export default function BookPage() {
               </button>
             </div>
 
-            <form className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label
-                    htmlFor="firstName"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  >
-                    Prénom *
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    value={formData.firstName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, firstName: e.target.value })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Votre prénom"
-                    required
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
+                <div className="grid md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Prénom *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Votre prénom"
+                            {...field}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nom *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Votre nom"
+                            {...field}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
                 </div>
-                <div>
-                  <label
-                    htmlFor="lastName"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  >
-                    Nom *
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    value={formData.lastName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, lastName: e.target.value })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Votre nom"
-                    required
-                  />
-                </div>
-              </div>
 
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                >
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="votre.email@exemple.com"
-                  required
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                >
-                  Téléphone *
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="06 12 34 56 78"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Date préférée *
-                </label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start text-left font-normal"
-                    >
-                      <svg
-                        className="mr-2 h-4 w-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email *</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="votre.email@exemple.com"
+                          {...field}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
-                      </svg>
-                      {formData.date ? (
-                        formData.date.toLocaleDateString("fr-FR")
-                      ) : (
-                        <span>Sélectionnez une date</span>
-                      )}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={formData.date}
-                      onSelect={(date) => setFormData({ ...formData, date })}
-                      disabled={(date) =>
-                        date < new Date() || date < new Date("1900-01-01")
-                      }
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <div className="pt-4">
-                <Button
-                  type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // Handle form submission here
-                    console.log("Form submitted:", formData);
-                  }}
-                >
-                  Demander un rendez-vous
-                </Button>
-              </div>
-            </form>
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Téléphone *</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="tel"
+                          placeholder="06 12 34 56 78"
+                          value={field.value}
+                          onChange={(e) => {
+                            const formatted = formatPhoneNumber(e.target.value);
+                            field.onChange(formatted);
+                          }}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          maxLength={14}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Date / Heure préférée *
+                  </label>
+                  <div className="flex gap-4">
+                    <FormField
+                      control={form.control}
+                      name="date"
+                      render={({ field }) => (
+                        <FormItem className="flex-1">
+                          <Popover open={open} onOpenChange={setOpen}>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant="outline"
+                                  className="w-full justify-start text-left font-normal cursor-pointer"
+                                >
+                                  <svg
+                                    className="mr-2 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                    />
+                                  </svg>
+                                  {field.value ? (
+                                    field.value.toLocaleDateString("fr-FR")
+                                  ) : (
+                                    <span>Sélectionnez une date</span>
+                                  )}
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                              <Calendar
+                                mode="single"
+                                selected={field.value}
+                                onSelect={(date) => {
+                                  field.onChange(date);
+                                  setOpen(false);
+                                }}
+                                disabled={(date) =>
+                                  date < new Date() ||
+                                  date < new Date("1900-01-01")
+                                }
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="time"
+                      render={({ field }) => (
+                        <FormItem className="flex-1">
+                          <FormControl>
+                            <Input
+                              type="time"
+                              {...field}
+                              step="60"
+                              className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="preferred_method"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Méthode préférée de contact *</FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          className="flex gap-8 items-center mt-4"
+                        >
+                          <div className="flex items-center gap-3">
+                            <RadioGroupItem value="Email" id="r1" />
+                            <Label htmlFor="r1">Email</Label>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <RadioGroupItem value="Téléphone" id="r2" />
+                            <Label htmlFor="r2">Téléphone</Label>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <RadioGroupItem value="WhatsApp" id="r3" />
+                            <Label htmlFor="r3">WhatsApp</Label>
+                          </div>
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="pt-4">
+                  <Button
+                    type="submit"
+                    disabled={form.formState.isSubmitting}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    {form.formState.isSubmitting
+                      ? "Envoi en cours..."
+                      : "Demander un rendez-vous"}
+                  </Button>
+                </div>
+              </form>
+            </Form>
           </div>
         )}
 

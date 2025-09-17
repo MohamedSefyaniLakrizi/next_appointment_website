@@ -28,7 +28,7 @@ export default function RootLayout({
   const dir = router.locale === "ar" ? "rtl" : "ltr";
   return (
     <Theme>
-      <html lang="en" dir={dir}>
+      <html lang="en" dir={dir} className="light">
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >

@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./components/layout/header";
 import { usePathname } from "next/navigation";
+import { Toaster } from "./components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,11 +41,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="light">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Force light theme
+              document.documentElement.classList.remove('dark');
+              document.documentElement.classList.add('light');
+              document.documentElement.style.colorScheme = 'light';
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <LayoutContent>{children}</LayoutContent>
+        <Toaster />
       </body>
     </html>
   );

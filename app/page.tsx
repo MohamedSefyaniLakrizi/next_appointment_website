@@ -35,8 +35,7 @@ export default function Home() {
 
         <div className="relative mt-10 p-4 flex flex-col lg:flex-row lg:justify-between gap-8 min-h-[80vh] lg:items-center max-w-7xl mx-auto">
           <div className="w-full lg:max-w-1/2 flex flex-col justify-center z-10 text-center lg:text-left">
-            {/* Professional badge */}
-            <div className="inline-flex items-center bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full px-4 py-2 mb-6 w-fit shadow-sm mx-auto lg:mx-0">
+            <div className="inline-flex items-center bg-white/80 border border-gray-200 rounded-full px-4 py-2 mb-6 w-fit shadow-sm mx-auto lg:mx-0">
               <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
               <span className="text-sm font-medium text-gray-700">
                 Psychologue Clinicienne Certifiée
@@ -57,8 +56,7 @@ export default function Home() {
               au service de votre santé mentale.
             </p>
 
-            {/* Trust indicators */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 mb-8 text-sm text-gray-600">
+            <div className="hidden md:flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 mb-8 text-sm text-gray-600">
               <div className="flex items-center">
                 <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2">
                   <Shield className="w-4 h-4 text-blue-600" />
@@ -98,9 +96,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Enhanced image section */}
+          {/* image section */}
           <div className="relative mt-8 lg:mt-0 flex justify-center lg:block">
-            {/* Decorative background */}
             <div className="absolute -inset-4 bg-gradient-to-r from-blue-200/30 to-green-200/30 rounded-2xl blur-xl"></div>
 
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/50 backdrop-blur-sm aspect-square w-[300px] sm:w-[400px] lg:w-[500px] group">
@@ -121,7 +118,7 @@ export default function Home() {
                     <p className="text-xs font-semibold text-gray-800">
                       Psychologue Certifiée
                     </p>
-                    <p className="text-xs text-gray-600">Maroc - Diplômée</p>
+                    <p className="text-xs text-gray-600">Maroc - Certifiée</p>
                   </div>
                 </div>
               </div>
@@ -172,7 +169,7 @@ export default function Home() {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Award className="w-8 h-8 text-green-600" />
                 </div>
-                <CardTitle className="text-2xl">Diplômée</CardTitle>
+                <CardTitle className="text-2xl">Certifiée</CardTitle>
                 <CardDescription>Formation universitaire</CardDescription>
               </CardHeader>
             </Card>
