@@ -4,9 +4,23 @@ import { useState } from "react";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/app/components/ui/card";
 import { toast } from "sonner";
-import { Mail, Phone, MapPin, Clock, Send, User, MessageSquare } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Send,
+  User,
+  MessageSquare,
+} from "lucide-react";
 
 interface FormData {
   firstName: string;
@@ -26,14 +40,16 @@ export default function ContactPage() {
     subject: "",
     message: "",
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -54,9 +70,9 @@ export default function ContactPage() {
 
       if (response.ok) {
         toast.success("Message envoyé avec succès!", {
-          description: "Nous vous répondrons dans les plus brefs délais."
+          description: "Nous vous répondrons dans les plus brefs délais.",
         });
-        
+
         // Reset form
         setFormData({
           firstName: "",
@@ -68,13 +84,13 @@ export default function ContactPage() {
         });
       } else {
         toast.error("Erreur lors de l'envoi", {
-          description: result.error || "Une erreur est survenue."
+          description: result.error || "Une erreur est survenue.",
         });
       }
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Erreur de connexion", {
-        description: "Veuillez vérifier votre connexion internet."
+        description: "Veuillez vérifier votre connexion internet.",
       });
     } finally {
       setIsSubmitting(false);
@@ -84,19 +100,18 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 lg:py-16">
-        
         {/* Header Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Contactez-nous
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Nous sommes là pour répondre à vos questions et vous accompagner dans vos soins.
+            Nous sommes là pour répondre à vos questions et vous accompagner
+            dans vos soins.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          
           {/* Contact Information */}
           <div className="space-y-8">
             <Card>
@@ -105,9 +120,7 @@ export default function ContactPage() {
                   <MapPin className="h-5 w-5" />
                   Informations de Contact
                 </CardTitle>
-                <CardDescription>
-                  Comment nous joindre
-                </CardDescription>
+                <CardDescription>Comment nous joindre</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -116,7 +129,9 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground">Email</h3>
-                    <p className="text-muted-foreground">mohamedsefyani@gmail.com</p>
+                    <p className="text-muted-foreground">
+                      mohamedsefyani@gmail.com
+                    </p>
                   </div>
                 </div>
 
@@ -137,7 +152,8 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-foreground">Adresse</h3>
                     <p className="text-muted-foreground">
-                      123 Rue de la Santé<br />
+                      123 Rue de la Santé
+                      <br />
                       75000 Paris, France
                     </p>
                   </div>
@@ -199,13 +215,10 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               <form onSubmit={handleSubmit} className="space-y-6">
-                
                 {/* Name Fields */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName">
-                      Prénom *
-                    </Label>
+                    <Label htmlFor="firstName">Prénom *</Label>
                     <div className="relative">
                       <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
@@ -222,9 +235,7 @@ export default function ContactPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="lastName">
-                      Nom *
-                    </Label>
+                    <Label htmlFor="lastName">Nom *</Label>
                     <div className="relative">
                       <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
@@ -243,9 +254,7 @@ export default function ContactPage() {
 
                 {/* Email Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="email">
-                    Email *
-                  </Label>
+                  <Label htmlFor="email">Email *</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
@@ -263,9 +272,7 @@ export default function ContactPage() {
 
                 {/* Phone Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="phone">
-                    Téléphone (optionnel)
-                  </Label>
+                  <Label htmlFor="phone">Téléphone (optionnel)</Label>
                   <div className="relative">
                     <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
@@ -282,9 +289,7 @@ export default function ContactPage() {
 
                 {/* Subject Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="subject">
-                    Sujet *
-                  </Label>
+                  <Label htmlFor="subject">Sujet *</Label>
                   <Input
                     id="subject"
                     name="subject"
@@ -298,9 +303,7 @@ export default function ContactPage() {
 
                 {/* Message Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="message">
-                    Message *
-                  </Label>
+                  <Label htmlFor="message">Message *</Label>
                   <textarea
                     id="message"
                     name="message"
@@ -337,7 +340,8 @@ export default function ContactPage() {
                 </Button>
 
                 <p className="text-sm text-muted-foreground text-center">
-                  En envoyant ce formulaire, vous acceptez que nous traitions vos données pour répondre à votre demande.
+                  En envoyant ce formulaire, vous acceptez que nous traitions
+                  vos données pour répondre à votre demande.
                 </p>
               </form>
             </CardContent>

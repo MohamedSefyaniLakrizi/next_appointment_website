@@ -214,11 +214,7 @@ export class GoogleCalendarService {
   }
 
   // Helper method to format date and time for calendar
-  static formatDateTime(
-    date: string,
-    time: string,
-    timeZone: string = "Europe/Paris"
-  ): string {
+  static formatDateTime(date: string, time: string): string {
     const dateTimeString = `${date}T${time}:00`;
     const dateTime = new Date(dateTimeString);
     return dateTime.toISOString();

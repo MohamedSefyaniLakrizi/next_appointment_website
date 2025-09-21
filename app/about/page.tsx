@@ -5,22 +5,12 @@ import {
   BookOpen,
   Users,
   Heart,
-  Star,
   Clock,
   Shield,
-  CheckCircle,
   Quote,
   GraduationCap,
-  Hospital,
   Briefcase,
 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import Link from "next/link";
 
@@ -316,10 +306,10 @@ export default function About() {
           <div className="bg-gray-50 rounded-2xl p-8 md:p-12 text-center mt-16">
             <Quote className="w-12 h-12 text-gray-400 mx-auto mb-6" />
             <blockquote className="text-2xl md:text-3xl font-medium text-gray-800 leading-relaxed mb-6 italic">
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+              do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat."
+              nisi ut aliquip ex ea commodo consequat.&quot;
             </blockquote>
             <cite className="text-gray-600 font-medium">
               - Dr. Lorem Ipsum Dolor

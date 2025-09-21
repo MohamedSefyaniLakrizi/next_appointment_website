@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
-import { Theme } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,16 +24,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter();
-  const dir = router.locale === "ar" ? "rtl" : "ltr";
+  //const dir = router.locale === "ar" ? "rtl" : "ltr";
   return (
-    <Theme>
-      <html lang="en" dir={dir} className="light">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
-      </html>
-    </Theme>
+    <html lang="en" className="light">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {children}
+      </body>
+    </html>
   );
 }

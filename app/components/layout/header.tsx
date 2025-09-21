@@ -4,13 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/app/components/ui/navigation-menu";
 import { Mail, Menu, Phone, X } from "lucide-react";

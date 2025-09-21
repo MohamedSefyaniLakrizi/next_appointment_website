@@ -193,7 +193,7 @@ export async function POST(request: Request) {
       : "";
 
     // Replace template variables
-    let emailContent = template.html
+    const emailContent = template.html
       .replace(/{{firstName}}/g, firstName)
       .replace(/{{lastName}}/g, lastName)
       .replace(/{{date}}/g, formattedDate)

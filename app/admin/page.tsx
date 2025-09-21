@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -57,12 +57,13 @@ export default function AdminPage() {
   const [loadingEvents, setLoadingEvents] = useState(false);
 
   // Helper function to handle authentication errors
-  const handleAuthError = (error: any) => {
+  const handleAuthError = (error: unknown) => {
+    const errorMessage = error instanceof Error ? error.message : String(error);
     if (
-      error.message?.includes("invalid authentication credentials") ||
-      error.message?.includes("OAuth 2 access token") ||
-      error.message?.includes("401") ||
-      error.message?.includes("Unauthorized")
+      errorMessage?.includes("invalid authentication credentials") ||
+      errorMessage?.includes("OAuth 2 access token") ||
+      errorMessage?.includes("401") ||
+      errorMessage?.includes("Unauthorized")
     ) {
       console.log("Authentication error detected, signing out...", error);
       toast.error("Session expirée, reconnexion nécessaire...");
@@ -73,7 +74,7 @@ export default function AdminPage() {
   };
 
   // Load templates on component mount
-  const loadTemplates = async () => {
+  const loadTemplates = useCallback(async () => {
     try {
       const response = await fetch("/api/send-template-email");
 
@@ -91,10 +92,10 @@ export default function AdminPage() {
         toast.error("Erreur lors du chargement des templates");
       }
     }
-  };
+  }, []);
 
   // Load calendar events
-  const loadCalendarEvents = async () => {
+  const loadCalendarEvents = useCallback(async () => {
     setLoadingEvents(true);
     try {
       // Get events for the next 30 days
@@ -123,22 +124,29 @@ export default function AdminPage() {
     } finally {
       setLoadingEvents(false);
     }
-  };
+  }, []);
 
   // Load templates and events when component mounts
   useEffect(() => {
     if (session) {
       // Check for authentication errors and sign out if needed
-      if ((session as any).error === "RefreshAccessTokenError") {
+      if (
+        (session as unknown as { error?: string }).error ===
+        "RefreshAccessTokenError"
+      ) {
         console.log("Authentication error detected, signing out...");
         signOut({ callbackUrl: "/admin" });
         return;
       }
 
-      loadTemplates();
-      loadCalendarEvents();
+      const loadData = async () => {
+        await loadTemplates();
+        await loadCalendarEvents();
+      };
+
+      loadData();
     }
-  }, [session]);
+  }, [session, loadTemplates, loadCalendarEvents]);
 
   // Handle event selection
   const handleEventSelect = (eventId: string) => {
@@ -259,7 +267,7 @@ export default function AdminPage() {
           <h2 className="font-bold text-gray-900 mb-4">Administration</h2>
           <p className="text-gray-600 mb-6">
             Vous devez vous connecter avec votre compte Google autorisé pour
-            accéder à l'administration.
+            accéder à l&apos;administration.
           </p>
           <LoginButton />
         </div>
@@ -282,7 +290,7 @@ export default function AdminPage() {
     }
 
     if (!formData.clientEmail.trim()) {
-      toast.error("L'email du client est requis");
+      toast.error("L&apos;email du client est requis");
       return;
     }
 
@@ -466,7 +474,7 @@ export default function AdminPage() {
                   <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
                 </div>
                 <h3 className="text-base font-semibold text-blue-900">
-                  Sélectionnez le type d'email à envoyer
+                  Sélectionnez le type d&apos;email à envoyer
                 </h3>
               </div>
               <RadioGroup
@@ -511,7 +519,7 @@ export default function AdminPage() {
                         </span>
                         <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-600" />
                         <h3 className="font-semibold text-yellow-800">
-                          Sélectionner l'événement du calendrier à{" "}
+                          Sélectionner l&apos;événement du calendrier à{" "}
                           {selectedTemplate === "reschedule"
                             ? "reprogrammer"
                             : selectedTemplate === "cancellation"
@@ -868,7 +876,7 @@ export default function AdminPage() {
                       </div>
                       <p className="text-xs text-orange-700 mt-2">
                         Ces informations seront automatiquement incluses dans
-                        l'email de reprogrammation
+                        l&apos;email de reprogrammation
                       </p>
                     </div>
                   </div>
@@ -880,8 +888,8 @@ export default function AdminPage() {
                     <div className="flex items-center gap-2">
                       <Lightbulb className="h-4 w-4 text-yellow-600" />
                       <p className="text-sm text-yellow-800">
-                        L'événement sélectionné sera automatiquement mis à jour
-                        avec la nouvelle date/heure.
+                        L&apos;événement sélectionné sera automatiquement mis à
+                        jour avec la nouvelle date/heure.
                       </p>
                     </div>
                   </div>
@@ -893,12 +901,12 @@ export default function AdminPage() {
                       <AlertTriangle className="h-4 w-4 text-red-600" />
                       <div>
                         <p className="text-sm text-red-800 font-medium">
-                          L'événement sélectionné sera automatiquement supprimé
-                          du calendrier.
+                          L&apos;événement sélectionné sera automatiquement
+                          supprimé du calendrier.
                         </p>
                         <p className="text-xs text-red-700 mt-1">
-                          Un email d'annulation sera envoyé au client avec les
-                          détails du rendez-vous annulé pour confirmation.
+                          Un email d&apos;annulation sera envoyé au client avec
+                          les détails du rendez-vous annulé pour confirmation.
                         </p>
                       </div>
                     </div>
@@ -918,7 +926,7 @@ export default function AdminPage() {
                   ) : (
                     <>
                       <Mail className="w-4 h-4 mr-2" />
-                      Envoyer l'email
+                      Envoyer l&apos;email
                     </>
                   )}
                 </Button>
@@ -930,7 +938,7 @@ export default function AdminPage() {
               <div className="text-center py-8 text-gray-500">
                 <div className="flex flex-col items-center gap-2">
                   <Mail className="h-8 w-8 sm:h-12 sm:w-12 text-gray-300" />
-                  <p>Sélectionnez un type d'email pour continuer</p>
+                  <p>Sélectionnez un type d&apos;email pour continuer</p>
                 </div>
               </div>
             )}
@@ -942,7 +950,7 @@ export default function AdminPage() {
           <div className="flex items-center gap-2 mb-3">
             <Lightbulb className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
             <h2 className="text-xl font-semibold text-blue-900">
-              Guide d'utilisation
+              Guide d&apos;utilisation
             </h2>
           </div>
           <div className="space-y-2 text-blue-800">

@@ -1,6 +1,5 @@
 "use client";
 import "../styles/book.css";
-import Script from "next/script";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -124,21 +123,6 @@ export default function BookPage() {
     };
   }, []);
 
-  const handleScriptLoad = () => {
-    // This runs after the Google Calendar script loads
-    if ((window as any).calendar && (window as any).calendar.schedulingButton) {
-      const target = document.getElementById("calendar-button-target");
-      if (target) {
-        (window as any).calendar.schedulingButton.load({
-          url: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2UX9Nk0LuRXxt5XCJyhRBGS5FfWHIiLAfZTk9eD2ytNIYmNZX6DRed8JtUf_OBWcpkTcdkgTAS?gv=true",
-          color: "#1a1a1a",
-          label: "Consultation",
-          target,
-        });
-      }
-    }
-  };
-
   return (
     <div className="min-h-screen py-8 px-4">
       <div className="max-w-4xl mx-auto">
@@ -235,7 +219,7 @@ export default function BookPage() {
                 <ul className="text-sm text-gray-500 space-y-1 mb-6">
                   <li>• Confort de votre domicile</li>
                   <li>• Flexibilité horaire</li>
-                  <li>• Même qualité d'accompagnement</li>
+                  <li>• Même qualité d&apos;accompagnement</li>
                 </ul>
                 <div className="inline-flex items-center text-green-600 font-medium group-hover:text-green-700">
                   Choisir cette option

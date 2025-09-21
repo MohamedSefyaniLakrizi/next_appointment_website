@@ -10,8 +10,6 @@ import {
   Shield,
   Quote,
   Calendar,
-  Phone,
-  Mail,
   Info,
 } from "lucide-react";
 import {
@@ -48,7 +46,7 @@ export default function Home() {
 
             <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
               Accompagnement psychologique personnalisé pour retrouver
-              l'équilibre et le bien-être.
+              l&apos;équilibre et le bien-être.
               <span className="font-semibold text-gray-800">
                 {" "}
                 Expérience hospitalière et centaines de patients accompagnés
@@ -132,8 +130,9 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center px-4">
           <Quote className="w-12 h-12 text-gray-400 mx-auto mb-6" />
           <blockquote className="text-2xl lg:text-3xl font-medium text-gray-800 leading-relaxed mb-6 italic">
-            "Jamais la psychologie ne pourra dire sur la folie la vérité,
-            puisque c'est la folie qui détient la vérité de la psychologie."
+            &quot;Jamais la psychologie ne pourra dire sur la folie la vérité,
+            puisque c&apos;est la folie qui détient la vérité de la
+            psychologie.&quot;
           </blockquote>
           <cite className="text-gray-600 font-medium">Michel Foucault</cite>
         </div>
@@ -215,9 +214,9 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4">
-                  "Dr. Lkhabir m'a aidé à retrouver confiance en moi après une
-                  période très difficile. Son approche bienveillante et
-                  professionnelle a fait toute la différence."
+                  &quot;Dr. Lkhabir m&apos;a aidé à retrouver confiance en moi
+                  après une période très difficile. Son approche bienveillante
+                  et professionnelle a fait toute la différence.&quot;
                 </p>
                 <div className="flex items-center">
                   <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
@@ -244,9 +243,9 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4">
-                  "Un accompagnement exceptionnel qui nous a permis de sauver
-                  notre mariage. Nous recommandons vivement Dr. Lkhabir pour les
-                  thérapies de couple."
+                  &quot;Un accompagnement exceptionnel qui nous a permis de
+                  sauver notre mariage. Nous recommandons vivement Dr. Lkhabir
+                  pour les thérapies de couple.&quot;
                 </p>
                 <div className="flex items-center">
                   <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-semibold">
@@ -273,9 +272,9 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4">
-                  "Professionnelle, empathique et efficace. Les séances m'ont
-                  aidé à surmonter mes phobies et à reprendre le contrôle de ma
-                  vie."
+                  &quot;Professionnelle, empathique et efficace. Les séances
+                  m&apos;ont aidé à surmonter mes phobies et à reprendre le
+                  contrôle de ma vie.&quot;
                 </p>
                 <div className="flex items-center">
                   <div className="w-10 h-10 bg-yellow-600 rounded-full flex items-center justify-center text-white font-semibold">
@@ -406,7 +405,8 @@ export default function Home() {
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto opacity-90">
             Ne laissez pas les difficultés définir votre vie. Prenez rendez-vous
-            dès aujourd'hui et faites le premier pas vers un mieux-être durable.
+            dès aujourd&apos;hui et faites le premier pas vers un mieux-être
+            durable.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
@@ -537,7 +537,7 @@ export default function Home() {
       <Card className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
         <CardHeader>
           <Shield className="w-12 h-12 text-gray-600 mb-4" />
-          <CardTitle>Consultation d'urgence</CardTitle>
+          <CardTitle>Consultation d&apos;urgence</CardTitle>
           <CardDescription>
             Support immédiat pour les situations de crise émotionnelle ou
             psychologique
@@ -593,9 +593,9 @@ export default function Home() {
         </CardHeader>
         <CardContent>
           <p className="text-gray-600 mb-4">
-            "Dr. Lkhabir m'a aidé à retrouver confiance en moi après une période
-            très difficile. Son approche bienveillante et professionnelle a fait
-            toute la différence."
+            &quot;Dr. Lkhabir m&apos;a aidé à retrouver confiance en moi après
+            une période très difficile. Son approche bienveillante et
+            professionnelle a fait toute la différence.&quot;
           </p>
           <div className="flex items-center">
             <div className="w-10 h-10 bg-gray-500 rounded-full flex items-center justify-center text-white font-semibold">
@@ -622,9 +622,9 @@ export default function Home() {
         </CardHeader>
         <CardContent>
           <p className="text-gray-600 mb-4">
-            "Un accompagnement exceptionnel qui nous a permis de sauver notre
-            mariage. Nous recommandons vivement Dr. Lkhabir pour les thérapies
-            de couple."
+            &quot;Un accompagnement exceptionnel qui nous a permis de sauver
+            notre mariage. Nous recommandons vivement Dr. Lkhabir pour les
+            thérapies de couple.&quot;
           </p>
           <div className="flex items-center">
             <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center text-white font-semibold">
@@ -651,8 +651,9 @@ export default function Home() {
         </CardHeader>
         <CardContent>
           <p className="text-gray-600 mb-4">
-            "Professionnelle, empathique et efficace. Les séances m'ont aidé à
-            surmonter mes phobies et à reprendre le contrôle de ma vie."
+            &quot;Professionnelle, empathique et efficace. Les séances
+            m&apos;ont aidé à surmonter mes phobies et à reprendre le contrôle
+            de ma vie.&quot;
           </p>
           <div className="flex items-center">
             <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white font-semibold">

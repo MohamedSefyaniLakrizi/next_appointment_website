@@ -11,7 +11,9 @@ const contactSchema = z.object({
   email: z.string().email("Email invalide"),
   phone: z.string().optional(),
   subject: z.string().min(1, "Le sujet est requis"),
-  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
+  message: z
+    .string()
+    .min(10, "Le message doit contenir au moins 10 caractères"),
 });
 
 export async function POST(request: Request) {
@@ -21,7 +23,8 @@ export async function POST(request: Request) {
     // Validate the request body
     const validatedData = contactSchema.parse(body);
 
-    const { firstName, lastName, email, phone, subject, message } = validatedData;
+    const { firstName, lastName, email, phone, subject, message } =
+      validatedData;
 
     // Create email content
     const emailContent = `
@@ -44,14 +47,18 @@ export async function POST(request: Request) {
                   <a href="mailto:${email}" style="color: #3b82f6; text-decoration: none;">${email}</a>
                 </td>
               </tr>
-              ${phone ? `
+              ${
+                phone
+                  ? `
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #374151;">Téléphone :</td>
                 <td style="padding: 8px 0; color: #1f2937;">
                   <a href="tel:${phone}" style="color: #3b82f6; text-decoration: none;">${phone}</a>
                 </td>
               </tr>
-              ` : ''}
+              `
+                  : ""
+              }
             </table>
           </div>
 
@@ -74,12 +81,16 @@ export async function POST(request: Request) {
                  style="background-color: #3b82f6; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; display: inline-block;">
                 📧 Répondre par email
               </a>
-              ${phone ? `
+              ${
+                phone
+                  ? `
               <a href="tel:${phone}" 
                  style="background-color: #10b981; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; display: inline-block;">
                 📞 Appeler
               </a>
-              ` : ''}
+              `
+                  : ""
+              }
               <a href="mailto:${email}?subject=Re: ${encodeURIComponent(subject)}" 
                  style="background-color: #8b5cf6; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; display: inline-block;">
                 💬 Répondre avec sujet
@@ -96,7 +107,7 @@ export async function POST(request: Request) {
               month: "long",
               day: "numeric",
               hour: "2-digit",
-              minute: "2-digit"
+              minute: "2-digit",
             })}
           </p>
         </div>

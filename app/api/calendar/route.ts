@@ -4,15 +4,45 @@ import { z } from "zod";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../lib/auth";
 
+// Type definitions
+interface SessionWithTokens {
+  accessToken?: string;
+  error?: string;
+}
+
+interface GoogleCalendarEvent {
+  id: string;
+  summary: string;
+  description?: string;
+  status: string;
+  start: {
+    dateTime: string;
+  };
+  end: {
+    dateTime: string;
+  };
+  attendees?: Array<{
+    email: string;
+    displayName?: string;
+  }>;
+}
+
+interface RequestBody {
+  action: string;
+  [key: string]: unknown;
+}
+
 // Helper function to get authenticated calendar service
 async function getCalendarService() {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(
+    authOptions
+  )) as SessionWithTokens | null;
 
-  if (!session || !(session as any).accessToken) {
+  if (!session || !session.accessToken) {
     throw new Error("Authentication required");
   }
 
-  return new GoogleCalendarService((session as any).accessToken);
+  return new GoogleCalendarService(session.accessToken);
 }
 
 // Validation schemas
@@ -50,7 +80,7 @@ export async function GET(request: Request) {
     );
 
     // Format events for frontend consumption
-    const formattedEvents = events.map((event: any) => ({
+    const formattedEvents = events.map((event: GoogleCalendarEvent) => ({
       id: event.id,
       title: event.summary,
       start: event.start.dateTime,
@@ -58,7 +88,7 @@ export async function GET(request: Request) {
       description: event.description,
       status: event.status,
       attendees:
-        event.attendees?.map((attendee: any) => ({
+        event.attendees?.map((attendee) => ({
           email: attendee.email,
           name: attendee.displayName,
         })) || [],
@@ -87,7 +117,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = (await request.json()) as RequestBody;
     const { action } = body;
 
     switch (action) {
@@ -117,7 +147,7 @@ export async function POST(request: Request) {
   }
 }
 
-async function handleCreateEvent(body: any) {
+async function handleCreateEvent(body: RequestBody) {
   const calendarService = await getCalendarService();
   const validatedData = createEventSchema.parse(body);
 
@@ -158,7 +188,7 @@ async function handleCreateEvent(body: any) {
   });
 }
 
-async function handleUpdateEvent(body: any) {
+async function handleUpdateEvent(body: RequestBody) {
   const calendarService = await getCalendarService();
   const validatedData = updateEventSchema.parse(body);
 
@@ -201,7 +231,7 @@ async function handleUpdateEvent(body: any) {
   });
 }
 
-async function handleDeleteEvent(body: any) {
+async function handleDeleteEvent(body: RequestBody) {
   const calendarService = await getCalendarService();
   const validatedData = deleteEventSchema.parse(body);
 
