@@ -463,7 +463,7 @@ export default function AdminPage() {
             <Button variant="secondary">
               <Link href="/" className="flex items-center gap-2">
                 <ArrowLeft className="h-4 w-4" />
-                <span>Retour à l&apos;accueil</span>
+                <span>Retour</span>
               </Link>
             </Button>
 

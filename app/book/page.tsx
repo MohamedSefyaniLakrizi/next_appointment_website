@@ -244,8 +244,8 @@ export default function BookPage() {
 
         {selectedType === "consultation" && (
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <div className="flex items-center justify-between mb-6">
-              <div>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+              <div className="order-2 md:order-1">
                 <h2 className="text-2xl font-semibold text-gray-900">
                   Consultation en cabinet
                 </h2>
@@ -255,7 +255,7 @@ export default function BookPage() {
               </div>
               <button
                 onClick={() => setSelectedType(null)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="order-1 md:order-2 self-start md:self-auto px-4 py-2 text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 ← Retour
               </button>
@@ -361,7 +361,7 @@ export default function BookPage() {
                               <FormControl>
                                 <Button
                                   variant="outline"
-                                  className="w-full justify-start text-left font-normal cursor-pointer"
+                                  className="w-full justify-start text-left font-normal cursor-pointer h-10"
                                 >
                                   <svg
                                     className="mr-2 h-4 w-4"
@@ -473,8 +473,8 @@ export default function BookPage() {
 
         {selectedType === "online" && (
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <div className="flex items-center justify-between mb-6">
-              <div>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+              <div className="order-2 md:order-1">
                 <h2 className="text-2xl font-semibold text-gray-900">
                   Consultation en ligne
                 </h2>
@@ -484,7 +484,7 @@ export default function BookPage() {
               </div>
               <button
                 onClick={() => setSelectedType(null)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="order-1 md:order-2 self-start md:self-auto px-4 py-2 text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 ← Retour
               </button>
