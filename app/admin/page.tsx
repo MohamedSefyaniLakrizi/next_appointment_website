@@ -7,6 +7,7 @@ import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
 import { toast } from "sonner";
 import { useSession, signOut } from "next-auth/react";
 import { LoginButton } from "../components/auth/LoginButton";
+import Link from "next/link";
 import {
   Mail,
   User,
@@ -18,6 +19,8 @@ import {
   Lightbulb,
   Lock,
   Loader2,
+  ArrowLeft,
+  LogOut,
 } from "lucide-react";
 
 interface Template {
@@ -455,7 +458,26 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen py-8 px-4 mt-5">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-6">
+        <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+          <div className="flex items-center justify-between w-full mb-8 mt-1">
+            <Button variant="secondary">
+              <Link href="/" className="flex items-center gap-2">
+                <ArrowLeft className="h-4 w-4" />
+                <span>Retour à l&apos;accueil</span>
+              </Link>
+            </Button>
+
+            <div className="flex items-center gap-3">
+              <Button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                variant="outline"
+                className="cursor-pointer flex items-center gap-2 text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+              >
+                <LogOut className="h-4 w-4" />
+                Se déconnecter
+              </Button>
+            </div>
+          </div>
           <div className="mb-6">
             <div className="flex items-center gap-3">
               <Mail className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />

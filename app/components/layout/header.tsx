@@ -112,7 +112,7 @@ export default function Header() {
               </Link>
             </div>
             {/* Contact Info */}
-            <div className="mb-8 space-y-4 mt-8">
+            <div className="mb-12 space-y-4 mt-8">
               <a
                 className="flex items-center gap-3 text-gray-700 hover:text-blue-600"
                 href="tel:+2120123456789"
@@ -128,6 +128,9 @@ export default function Header() {
                 <span>contact@malikalkhabir.ma</span>
               </a>
             </div>
+            <Link href="/admin" className="flex gap-1 items-center">
+              <span className="text-sm underline">Espace Admin</span>
+            </Link>
           </div>
         </div>
       </div>
@@ -155,7 +158,9 @@ export default function Header() {
           href="/admin"
           className="absolute right-4 flex gap-1 items-center"
         >
-          <span className="text-xs md:text-sm underline">Espace Admin</span>
+          <span className="text-xs hidden md:block md:text-sm underline">
+            Espace Admin
+          </span>
         </Link>
       </aside>
       <header className="w-full flex justify-center border-b border-gray-200">
