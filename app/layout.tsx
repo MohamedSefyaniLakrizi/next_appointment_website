@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "./components/layout/header";
 import { usePathname } from "next/navigation";
 import { Toaster } from "./components/ui/sonner";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,12 +20,12 @@ const geistMono = Geist_Mono({
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isStudioPage = pathname?.startsWith("/studio");
+  const isAdminPage = pathname?.startsWith("/admin");
 
   return (
     <div className="min-h-screen">
-      {!isStudioPage && <Header />}
-      {isStudioPage ? (
+      {!isAdminPage && <Header />}
+      {isAdminPage ? (
         children
       ) : (
         <div className="flex justify-center">
@@ -57,8 +58,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <LayoutContent>{children}</LayoutContent>
-        <Toaster />
+        <SessionProvider>
+          <LayoutContent>{children}</LayoutContent>
+          <Toaster />
+        </SessionProvider>
       </body>
     </html>
   );

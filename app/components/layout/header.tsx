@@ -126,10 +126,10 @@ export default function Header() {
               </a>
               <a
                 className="flex items-center gap-3 text-gray-700 hover:text-blue-600"
-                href="mailto:contact@example.com"
+                href="mailto:contact@malikalkhabir.ma"
               >
                 <Mail size={20} />
-                <span>contact@example.com</span>
+                <span>contact@malikalkhabir.ma</span>
               </a>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default function Header() {
       </div>
       <aside
         role="banner"
-        className="bg-neutral-100 text-center py-4 px-4 justify-center md:justify-start flex items-center gap-2"
+        className="bg-neutral-100 relative text-center py-4 px-4 justify-center md:justify-start flex items-center gap-2"
       >
         <a
           className="text-xs md:text-sm flex gap-1 items-center"
@@ -150,11 +150,17 @@ export default function Header() {
 
         <a
           className="text-xs md:text-sm flex gap-1 items-center"
-          href="mailto:contact@example.com"
+          href="mailto:contact@malikalkhabir.ma"
         >
           <Mail size={20} />
-          <span className="text-xs md:text-sm">contact@example.com</span>
+          <span className="text-xs md:text-sm">contact@malikalkhabir.ma</span>
         </a>
+        <Link
+          href="/admin"
+          className="absolute right-4 flex gap-1 items-center"
+        >
+          <span className="text-xs md:text-sm underline">Espace Admin</span>
+        </Link>
       </aside>
       <header className="w-full flex justify-center border-b border-gray-200">
         <div className="w-full 1200:w-[1200px] relative">
