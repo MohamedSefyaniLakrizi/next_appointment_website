@@ -8,7 +8,6 @@
 /*
 ---break---
 */
-@custom-variant dark (&:is(.dark *));
 
 @theme {
   --breakpoint-1200: 1200px;
@@ -61,7 +60,7 @@
   }
 }
 */
-
+/*
 h1 {
   @apply text-5xl font-bold;
 }
@@ -85,7 +84,7 @@ h5 {
 h6 {
   @apply font-light opacity-70;
 }
-
+*/
 /*
 ---break---
 */

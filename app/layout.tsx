@@ -6,6 +6,7 @@ import Header from "./components/layout/header";
 import { usePathname } from "next/navigation";
 import { Toaster } from "./components/ui/sonner";
 import { SessionProvider } from "next-auth/react";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,18 +20,12 @@ const geistMono = Geist_Mono({
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isAdminPage = pathname?.startsWith("/admin");
+  const isAdminPage =
+    pathname?.startsWith("/admin") || pathname?.startsWith("/dashboard");
 
   return (
     <div className="min-h-screen">
-      {!isAdminPage && <Header />}
-      {isAdminPage ? (
-        children
-      ) : (
-        <div className="flex justify-center">
-          <div className="w-full 1200:w-[1200px]">{children}</div>
-        </div>
-      )}
+      {!isAdminPage && <Header />} {children}
     </div>
   );
 }
@@ -61,6 +56,7 @@ export default function RootLayout({
           <LayoutContent>{children}</LayoutContent>
           <Toaster />
         </SessionProvider>
+        <Analytics />
       </body>
     </html>
   );
